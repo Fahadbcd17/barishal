@@ -1,0 +1,4 @@
+.venv/*
+base/base/__pycache__/*
+base/base/*.pyc
+barishal/package-lock.json
