@@ -65,6 +65,9 @@
           <label for="terms" class="ml-2 block text-sm text-gray-900">
             I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-500">Terms of Service</a> and <a href="#" class="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>
           </label>
+          <router-link to="/login" class="font-medium text-indigo-600 hover:text-indigo-500">
+            Already have an account?
+          </router-link>
         </div>
 
         <div>
