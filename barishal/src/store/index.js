@@ -1,6 +1,8 @@
 import { createStore } from "vuex";
 import AuthService from "../services";
 import TokenService from "../services/token";
+import GetService from "../services/get";
+
 const user = JSON.parse(localStorage.getItem("user"));
 const access_token = JSON.parse(localStorage.getItem("access_token"));
 const refresh_token = JSON.parse(localStorage.getItem("refresh_token"));
@@ -21,7 +23,11 @@ const initialState = user
       user: null,
     };
 
-const initialTaxState = {};
+const initialCityState = {
+    currentCity: null,
+    allCities: []
+};
+
 export const store = createStore({
   modules: {
     auth: {
@@ -40,7 +46,6 @@ export const store = createStore({
             async (tokens) => {
               TokenService.setLocalRefreshToken(tokens.refresh);
               TokenService.setLocalAccessToken(tokens.access);
-              //await store.dispatch("shop/getPrimaryShop");
               return await AuthService.me().then(
                 async (me) => {
                   TokenService.setLocalUser(me);
@@ -60,7 +65,6 @@ export const store = createStore({
           );
         },
         logout({ commit }) {
-          // AuthService.logout();
           commit("logout");
           TokenService.removeRefreshToken();
           TokenService.removeAccessToken();
@@ -70,15 +74,10 @@ export const store = createStore({
         register({ commit }, user) {
           return AuthService.register(user).then(
             (response) => {
-              console.log(
-                "🚀 ~ file: index.js:54 ~ register ~ response:",
-                response
-              );
               commit("registerSuccess");
               return Promise.resolve(response.data);
             },
             (error) => {
-              console.log("🚀 ~ file: index.js:54 ~ register ~ error:", error);
               commit("registerFailure");
               return Promise.reject(error);
             }
@@ -88,7 +87,6 @@ export const store = createStore({
           commit("refreshToken", accessToken);
         },
       },
-
       mutations: {
         loginSuccess(state, user) {
           state.loggedIn = true;
@@ -122,5 +120,51 @@ export const store = createStore({
         },
       },
     },
+    city: {
+      namespaced: true,
+      state: initialCityState,
+      getters: {
+        currentCity: (state) => state.currentCity,
+        allCities: (state) => state.allCities,
+      },
+      actions: {
+        async fetchCity({ commit }, cityId) {
+          try {
+            // Set authRequired to false for public access
+            const response = await GetService.getCity(cityId, false);
+            commit("setCurrentCity", response);
+            return response;
+          } catch (error) {
+            console.error("Error fetching city:", error);
+            throw error;
+          }
+        },
+        async fetchAllCities({ commit }) {
+          try {
+            // Set authRequired to false for public access
+            const response = await GetService.getAllCities(false);
+            commit("setAllCities", response);
+            return response;
+          } catch (error) {
+            console.error("Error fetching cities:", error);
+            throw error;
+          }
+        },
+        clearCurrentCity({ commit }) {
+          commit("clearCurrentCity");
+        }
+      },
+      mutations: {
+        setCurrentCity(state, city) {
+          state.currentCity = city;
+        },
+        setAllCities(state, cities) {
+          state.allCities = cities;
+        },
+        clearCurrentCity(state) {
+          state.currentCity = null;
+        }
+      },
+    }
   },
 });
