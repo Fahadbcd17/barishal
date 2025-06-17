@@ -3,7 +3,7 @@ from . import views
 from rest_framework import routers
 from .views import *
 router = routers.DefaultRouter()
-# router.register(r'shops', views.ViewSet)
+router.register(r'city', CityViewSet)
 
 
 app_name = "api"
