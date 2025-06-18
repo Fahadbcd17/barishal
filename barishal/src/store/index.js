@@ -165,6 +165,83 @@ export const store = createStore({
           state.currentCity = null;
         }
       },
+    },
+
+    attraction: {
+      namespaced: true,
+      state: {
+        currentAttraction: null,
+        attractions: []
+      },
+      getters: {
+        currentAttraction: (state) => state.currentAttraction,
+        attractions: (state) => state.attractions,
+      },
+      actions: {
+        async fetchAttractions({ commit }) {
+          try {
+            const response = await GetService.getAttractions(true); // Requires auth
+            commit("setAttractions", response);
+            return response;
+          } catch (error) {
+            console.error("Error fetching attractions:", error);
+            throw error;
+          }
+        },
+        async createAttraction({ commit }, attractionData) {
+          try {
+            const response = await GetService.createAttraction(attractionData, true);
+            commit("addAttraction", response);
+            return response;
+          } catch (error) {
+            console.error("Error creating attraction:", error);
+            throw error;
+          }
+        },
+        async updateAttraction({ commit }, {id, attractionData}) {
+          try {
+            const response = await GetService.updateAttraction(id, attractionData, true);
+            commit("updateAttraction", response);
+            return response;
+          } catch (error) {
+            console.error("Error updating attraction:", error);
+            throw error;
+          }
+        },
+        async deleteAttraction({ commit }, id) {
+          try {
+            await GetService.deleteAttraction(id, true);
+            commit("removeAttraction", id);
+            return true;
+          } catch (error) {
+            console.error("Error deleting attraction:", error);
+            throw error;
+          }
+        }
+      },
+      mutations: {
+        setAttractions(state, attractions) {
+          state.attractions = attractions;
+        },
+        addAttraction(state, attraction) {
+          state.attractions.push(attraction);
+        },
+        updateAttraction(state, updatedAttraction) {
+          const index = state.attractions.findIndex(a => a.id === updatedAttraction.id);
+          if (index !== -1) {
+            state.attractions.splice(index, 1, updatedAttraction);
+          }
+        },
+        removeAttraction(state, id) {
+          state.attractions = state.attractions.filter(a => a.id !== id);
+        },
+        setCurrentAttraction(state, attraction) {
+          state.currentAttraction = attraction;
+        },
+        clearCurrentAttraction(state) {
+          state.currentAttraction = null;
+        }
+      },
     }
   },
 });
