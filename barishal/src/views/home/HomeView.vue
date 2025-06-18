@@ -249,18 +249,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, onBeforeMount, computed } from "vue";
 import { useStore } from "vuex";
-import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
 const store = useStore();
-const route = useRoute();
+const router = useRouter();
 const loading = ref(true);
 const error = ref(null);
 
 // Fetch city data when component mounts
 onMounted(async () => {
   try {
+    if(store.state.auth.user.username ){
+    router.push({ name: 'explore' });
+  }
     await store.dispatch("city/fetchCity", 2);
     loading.value = false;
   } catch (err) {
