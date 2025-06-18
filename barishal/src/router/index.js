@@ -54,7 +54,33 @@ const router = createRouter({
                   path: 'profile',
                   name: 'profile',
                   component: () => import('../views/user/ProfileView.vue'),
-              },
+                },
+                {
+                  path: 'explore',
+                  name: 'explore',
+                  component: () => import('../views/user/ExploreView.vue'),
+                },
+                {
+                  path: 'about',
+                  name: 'about',
+                  component: () => import('../views/user/AboutView.vue'),
+                },
+                {
+                  path: 'guide',
+                  name: 'guide',
+                  component: () => import('../views/user/GuideRequestView.vue'),
+                },
+                {
+                  path: 'attractions',
+                  name: 'attractions',
+                  component: () => import('../views/user/AttractionsView.vue'),
+                },
+                {
+                    path: 'post',
+                    name: 'post',
+                    component: () => import('../views/user/AddPostView.vue'),
+                  },
+                
             ]
         },
 
