@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import City, QuickFact, FunFact, Highlight, Neighborhood, NeighborhoodTag, TransportTip
+from .models import *
 
 class QuickFactSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,3 +56,13 @@ class CitySerializer(serializers.ModelSerializer):
             'quick_facts', 'fun_facts', 'best_time', 'highlights',
             'neighborhoods', 'transport_tips'
         ]
+class CurrentCitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CurrentCity
+        fields = ['city_id']
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = "__all__"

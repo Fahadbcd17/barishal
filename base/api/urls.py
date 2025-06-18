@@ -4,7 +4,9 @@ from rest_framework import routers
 from .views import *
 router = routers.DefaultRouter()
 router.register(r'city', CityViewSet)
-
+router.register(r'currentcity', CurrentCityViewSet)
+router.register(r'message', views.MessageViewSet, basename='message')
+router.register(r'attraction', views.HighlightViewSet, basename='attraction')
 
 app_name = "api"
 urlpatterns =  [

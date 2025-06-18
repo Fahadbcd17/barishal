@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import User
 
 class City(models.Model):
     # Required fields (should not be null)
@@ -10,6 +11,7 @@ class City(models.Model):
     tagline = models.CharField(max_length=200, blank=True, null=True)
     hero_image = models.ImageField(upload_to='city_hero_images/', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    history = models.TextField(blank=True, null=True) 
     
     # Best time to visit fields
     best_season = models.CharField(max_length=100, blank=True, null=True)
@@ -21,6 +23,12 @@ class City(models.Model):
     
     def __str__(self):
         return f"{self.name}, {self.country}"
+    
+class CurrentCity(models.Model):
+    city_id = models.IntegerField(unique=True)
+
+    def __str__(self):
+        return f"Current City ID: {self.city_id}"
 
 class QuickFact(models.Model):
     city = models.ForeignKey(City, related_name='quick_facts', on_delete=models.CASCADE)
@@ -38,6 +46,7 @@ class FunFact(models.Model):
         return self.text
 
 class Highlight(models.Model):
+    user = models.ForeignKey(User, related_name='highlights', on_delete=models.CASCADE, blank=True, null=True)
     city = models.ForeignKey(City, related_name='highlights', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
@@ -77,3 +86,16 @@ class TransportTip(models.Model):
     
     def __str__(self):
         return self.title
+    
+
+class Message(models.Model):
+    name = models.CharField(max_length=20)
+    phone = models.CharField(max_length=12, blank=True, null=True)
+    email = models.EmailField(max_length=100)
+    subject = models.CharField(max_length=50)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=False) 
+    def __str__(self):
+        return f"{self.name} - {self.subject} ({self.created_at})"
+    
