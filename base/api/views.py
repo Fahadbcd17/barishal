@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from rest_framework import viewsets, response
+from rest_framework import viewsets
+from rest_framework.response import Response
 from .models import *
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated
@@ -45,5 +46,15 @@ class MessageViewSet(viewsets.ModelViewSet):
         serializer = MessageSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
-            return response(status=status.HTTP_201_CREATED) 
-        return response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_201_CREATED) 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TravelTipViewSet(viewsets.ModelViewSet):
+    queryset = TravelTip.objects.all()
+    serializer_class = TravelTipSerializer
+    permission_classes = [IsAuthenticated]
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK) 

@@ -66,3 +66,8 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = "__all__"
+
+class TravelTipSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TravelTip
+        fields = "__all__"

@@ -7,6 +7,7 @@ router.register(r'city', CityViewSet)
 router.register(r'currentcity', CurrentCityViewSet)
 router.register(r'message', views.MessageViewSet, basename='message')
 router.register(r'attraction', views.HighlightViewSet, basename='attraction')
+router.register(r'tips', views.TravelTipViewSet, basename='tips')
 
 app_name = "api"
 urlpatterns =  [

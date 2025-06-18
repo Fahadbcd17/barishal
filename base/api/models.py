@@ -99,3 +99,11 @@ class Message(models.Model):
     def __str__(self):
         return f"{self.name} - {self.subject} ({self.created_at})"
     
+class TravelTip(models.Model):
+    city = models.ForeignKey(City, related_name='travel_tips', on_delete=models.CASCADE)
+    emoji = models.CharField(max_length=10)
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    
+    def __str__(self):
+        return self.title
