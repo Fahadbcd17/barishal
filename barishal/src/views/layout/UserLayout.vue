@@ -116,9 +116,20 @@
 
           <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Discover</h3>
           <nav class="space-y-1">
-            
             <router-link 
-              to="/explore" 
+              to="/user/dashboard" 
+              @click="sidebarOpen = false"
+              class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 transition"
+              active-class="bg-indigo-50 text-indigo-700 font-medium"
+            >
+              <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+              </svg>
+              Dashboard
+            </router-link>
+            <router-link 
+              to="/user/explore" 
               @click="sidebarOpen = false"
               class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 transition"
               active-class="bg-indigo-50 text-indigo-700 font-medium"
@@ -129,18 +140,34 @@
               Explore City
             </router-link>
             <router-link 
-              to="/explore" 
+              to="/user/events" 
               @click="sidebarOpen = false"
               class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 transition"
               active-class="bg-indigo-50 text-indigo-700 font-medium"
             >
-              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
               </svg>
-              Add Post
+              Events
             </router-link>
             <router-link 
-              to="/attractions" 
+              to="/user/about" 
+              @click="sidebarOpen = false"
+              class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 transition"
+              active-class="bg-indigo-50 text-indigo-700 font-medium"
+            >
+              <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              About
+            </router-link>
+            <router-link 
+              to="/user/attractions" 
               @click="sidebarOpen = false"
               class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 transition"
               active-class="bg-indigo-50 text-indigo-700 font-medium"
@@ -152,7 +179,7 @@
               Top Attractions
             </router-link>
             <router-link 
-              to="/tours" 
+              to="/user/guide" 
               @click="sidebarOpen = false"
               class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 transition"
               active-class="bg-indigo-50 text-indigo-700 font-medium"
@@ -166,32 +193,23 @@
         </div>
         
         <div class="mb-6">
-          <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">My Content</h3>
+          <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Actions</h3>
           <nav class="space-y-1">
             <router-link 
-              to="/saved" 
+              to="/user/post" 
               @click="sidebarOpen = false"
               class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 transition"
               active-class="bg-indigo-50 text-indigo-700 font-medium"
             >
-              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-              </svg>
-              Saved Places
+            <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+              Add Post
             </router-link>
             <router-link 
-              to="/itineraries" 
-              @click="sidebarOpen = false"
-              class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 transition"
-              active-class="bg-indigo-50 text-indigo-700 font-medium"
-            >
-              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-              </svg>
-              My Itineraries
-            </router-link>
-            <router-link 
-              to="/reviews" 
+              to="/user/reviews" 
               @click="sidebarOpen = false"
               class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 transition"
               active-class="bg-indigo-50 text-indigo-700 font-medium"
@@ -207,34 +225,36 @@
         <div>
           <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Community</h3>
           <nav class="space-y-1">
-            <router-link 
-              to="/events" 
+            <a
+              target="_blank"
+              href="https://x.com/Fahadbcd17?s=05"
               @click="sidebarOpen = false"
               class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 transition"
               active-class="bg-indigo-50 text-indigo-700 font-medium"
             >
-              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
-              Local Events
-            </router-link>
-            <router-link 
-              to="/forums" 
+            <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000" width="24" height="24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+              X
+            </a>
+            <a
+              href="https://www.facebook.com/osman.fahad.7982" 
+              target="_blank"
               @click="sidebarOpen = false"
               class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-indigo-50 transition"
               active-class="bg-indigo-50 text-indigo-700 font-medium"
             >
-              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-              </svg>
-              Discussion Forums
-            </router-link>
+            <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1877F2" width="24" height="24">
+              <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+            </svg>
+              Facebook
+            </a>
           </nav>
         </div>
       </aside>
 
       <!-- Main Content -->
-      <main class="flex-grow ">
+      <main class="flex-grow">
         <div class="bg-white rounded-xl shadow-sm ">
           <slot></slot>
         </div>

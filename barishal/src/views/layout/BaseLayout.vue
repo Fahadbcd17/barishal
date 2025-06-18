@@ -14,10 +14,10 @@
         </router-link>
         
         <nav class="hidden md:flex items-center space-x-8">
-          <router-link to="/explore" class="text-gray-600 hover:text-blue-600 transition">Explore</router-link>
-          <router-link to="/attractions" class="text-gray-600 hover:text-blue-600 transition">Attractions</router-link>
-          <router-link to="/events" class="text-gray-600 hover:text-blue-600 transition">Events</router-link>
-          <router-link to="/about" class="text-gray-600 hover:text-blue-600 transition">About</router-link>
+          <router-link to="/user/explore" class="text-gray-600 hover:text-blue-600 transition">Explore</router-link>
+          <router-link to="/user/attractions" class="text-gray-600 hover:text-blue-600 transition">Attractions</router-link>
+          <router-link to="/user/events" class="text-gray-600 hover:text-blue-600 transition">Events</router-link>
+          <router-link to="/user/about" class="text-gray-600 hover:text-blue-600 transition">About</router-link>
         </nav>
         
         <div class="flex items-center space-x-4">
