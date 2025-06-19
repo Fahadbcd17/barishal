@@ -200,32 +200,31 @@
           class="mt-8 bg-gray-200 rounded-lg overflow-hidden h-96 flex items-center justify-center"
         >
         <div class="text-center p-8">
-          
-          <!-- Kunming-specific responsive map container -->
+          <!-- Barishal-specific responsive map container -->
           <div class="w-full">
-            <!-- Full-width Kunming map container -->
+            <!-- Full-width Barishal map container -->
             <div class="relative overflow-hidden pb-[50%] h-0 w-full">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d221996.5011076276!2d102.5762419!3d25.0216075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x36d083c31227d3cb%3A0xccb1f3a4984f0a36!2sKunming%2C%20Yunnan%2C%20China!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58949.6401208987!2d90.3333151!3d22.7010021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755341c9202816b%3A0x4a0f7957c5db1b87!2sBarishal!5e0!3m2!1sen!2sbd!4v1710000000000!5m2!1sen!2sbd"
                 class="absolute top-0 left-0 w-full h-full border-0"
                 allowfullscreen
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-                aria-label="Full-width map of Kunming, China">
+                aria-label="Interactive map of Barishal, Bangladesh">
               </iframe>
             </div>
             
             <!-- Optional caption -->
             <div class="text-center mt-2">
-              <p class="text-sm text-gray-500">Interactive map of Kunming, Yunnan Province</p>
+              <p class="text-sm text-gray-500">Interactive map of Barishal Division, Bangladesh</p>
             </div>
           </div>
           
           <h3 class="text-xl font-medium text-gray-900 mt-6">
-            Kunming City Map
+            Barishal City Map
           </h3>
           <p class="mt-2 text-gray-600">
-            Explore the Spring City's layout and key locations
+            Explore the Venice of the East's riverine landscape
           </p>
         </div>
         </div>
@@ -249,7 +248,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeMount, computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
@@ -260,17 +259,16 @@ const error = ref(null);
 
 // Fetch city data when component mounts
 onMounted(async () => {
-  try {
-    if(store.state.auth.user.username ){
-    router.push({ name: 'explore' });
-  }
-    await store.dispatch("city/fetchCity", 2);
+  try {    
+    await store.dispatch("city/fetchCity", 1);
     loading.value = false;
   } catch (err) {
     error.value = err.message || "Failed to load city data";
     loading.value = false;
   }
 });
+
+
 
 // Get city data from Vuex store
 const city = computed(() => {
