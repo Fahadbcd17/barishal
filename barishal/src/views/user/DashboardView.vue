@@ -26,72 +26,21 @@
     </div>
 
     <!-- Travel Tips Section -->
-    <div class="py-12 bg-white" v-if="city">
+    <div class="py-12 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-extrabold text-gray-900 text-center">
-          Travel Tips for {{ city.name }}
-        </h2>
-
         <div class="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <!-- Tip 1 -->
-          <div class="bg-indigo-50 p-6 rounded-lg">
-            <div class="text-2xl mb-3">🌞</div>
+          <!-- Tip Cards -->
+          <div 
+            v-for="tip in tips" 
+            :key="tip.id" 
+            class="bg-indigo-50 p-6 rounded-lg"
+          >
+            <div class="text-2xl mb-3">{{ tip.emoji }}</div>
             <h3 class="text-lg font-medium text-gray-900">
-              Best Time to Visit
+              {{ tip.title }}
             </h3>
             <p class="mt-2 text-gray-600">
-              {{ city.best_season }} ({{ city.best_months }}) is ideal with
-              average temperatures around {{ city.best_temperature }}.
-            </p>
-          </div>
-
-          <!-- Tip 2 -->
-          <div class="bg-indigo-50 p-6 rounded-lg">
-            <div class="text-2xl mb-3">🚕</div>
-            <h3 class="text-lg font-medium text-gray-900">Getting Around</h3>
-            <p class="mt-2 text-gray-600">
-              Use the metro for speed or taxis for convenience. Download DiDi
-              (China's Uber) for easy rides.
-            </p>
-          </div>
-
-          <!-- Tip 3 -->
-          <div class="bg-indigo-50 p-6 rounded-lg">
-            <div class="text-2xl mb-3">🍜</div>
-            <h3 class="text-lg font-medium text-gray-900">Must-Try Food</h3>
-            <p class="mt-2 text-gray-600">
-              Don't miss Crossing-the-Bridge Rice Noodles, Yunnan's famous dish.
-              Try it at local favorites like Guanxinglou.
-            </p>
-          </div>
-
-          <!-- Tip 4 -->
-          <div class="bg-indigo-50 p-6 rounded-lg">
-            <div class="text-2xl mb-3">💵</div>
-            <h3 class="text-lg font-medium text-gray-900">Money Tips</h3>
-            <p class="mt-2 text-gray-600">
-              WeChat Pay and Alipay are widely accepted. Carry some cash for
-              small vendors.
-            </p>
-          </div>
-
-          <!-- Tip 5 -->
-          <div class="bg-indigo-50 p-6 rounded-lg">
-            <div class="text-2xl mb-3">📷</div>
-            <h3 class="text-lg font-medium text-gray-900">Top Photo Spot</h3>
-            <p class="mt-2 text-gray-600">
-              Dianchi Lake at sunset offers stunning views, especially near
-              Haigeng Park.
-            </p>
-          </div>
-
-          <!-- Tip 6 -->
-          <div class="bg-indigo-50 p-6 rounded-lg">
-            <div class="text-2xl mb-3">⚠️</div>
-            <h3 class="text-lg font-medium text-gray-900">Important Note</h3>
-            <p class="mt-2 text-gray-600">
-              Carry your passport as it's required for hotel check-ins and
-              ticket purchases.
+              {{ tip.description }}
             </p>
           </div>
         </div>
@@ -100,37 +49,43 @@
 
     <!-- Continue with the rest of the original homeview components -->
     <!-- City Hero Section -->
-    <div class="relative" v-if="city">
-      <!-- ... existing city hero section ... -->
-    </div>
-
+    
     <!-- Include other sections from the original homeview as needed -->
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted,computed } from "vue";
 import { useStore } from "vuex";
-import { useRoute } from "vue-router";
 
 const store = useStore();
-const route = useRoute();
 const loading = ref(true);
 const error = ref(null);
+const tips = ref([]);
+const accessToken = computed(()=> store.getters['auth/accessToken'])
 
-// Fetch city data when component mounts
 onMounted(async () => {
+  console.log('Fetching tips with access token:', accessToken.value);
   try {
-    await store.dispatch("city/fetchCity", 1);
+    const response = await fetch('http://127.0.0.1:8000/api/tips/', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken.value}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch tips');
+    }
+
+    const data = await response.json();
+    tips.value = data;
     loading.value = false;
   } catch (err) {
-    error.value = err.message || "Failed to load city data";
+    error.value = err.message || "Failed to load tips data";
     loading.value = false;
+    console.error('Error fetching tips:', err);
   }
-});
-
-// Get city data from Vuex store
-const city = computed(() => {
-  return store.getters["city/currentCity"];
 });
 </script>
