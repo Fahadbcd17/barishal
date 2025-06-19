@@ -26,7 +26,7 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
 class HighlightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Highlight
-        fields = ['name', 'description', 'image', 'location', 'rating']
+        fields = "__all__"
 
 class TransportTipSerializer(serializers.ModelSerializer):
     class Meta:

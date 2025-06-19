@@ -46,8 +46,8 @@ class FunFact(models.Model):
         return self.text
 
 class Highlight(models.Model):
-    user = models.ForeignKey(User, related_name='highlights', on_delete=models.CASCADE, blank=True, null=True)
-    city = models.ForeignKey(City, related_name='highlights', on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, related_name='highlights', on_delete=models.CASCADE, blank=True, null=True)
+    city = models.ForeignKey(City, related_name='highlights', on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='highlights/', blank=True, null=True)
@@ -58,8 +58,7 @@ class Highlight(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(5)],
         blank=True, 
         null=True
-    )
-    
+    )    
     def __str__(self):
         return self.name
 
