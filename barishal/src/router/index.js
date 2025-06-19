@@ -97,19 +97,16 @@ router.afterEach((to, from, failure) => {
 
 router.beforeEach((to, from, next) => {
     const isAuthenticated = localStorage.getItem('access_token');
-
-    if (to.meta.requiresAuth && !isAuthenticated) {
-        console.log("🚀 ~ router.beforeEach ~ isAuthenticated:", isAuthenticated)
-        next({ name: 'login' });
-    } 
-    else if (to.meta.preventAuthAccess && isAuthenticated) {
-        console.log("🚀 ~ router.beforeEach ~ isAuthenticated:", isAuthenticated);
-        next({ name: 'dashboard' }); 
-    } 
-    else {
-        console.log("🚀 ~ router.beforeEach ~ nex(): else case")
-        next()
+    if (to.meta.preventAuthAccess && isAuthenticated) {
+        return next({ name: 'dashboard' });
     }
+    if (to.path === '/' && isAuthenticated) {
+        return next({ name: 'dashboard' });
+    }
+    if (to.meta.requiresAuth && !isAuthenticated) {
+        return next({ name: 'login' });
+    }
+    next();
 });
 
 export default router
