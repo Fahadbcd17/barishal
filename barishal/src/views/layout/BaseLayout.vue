@@ -21,8 +21,7 @@
         </nav>
         
         <div class="flex items-center space-x-4">
-          <router-link v-if="!store.state.auth.user" to="/login" class="hidden md:block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Sign In</router-link>
-          <router-link v-else to="/user/dashboard" class="hidden md:block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Dashboard</router-link>
+          <router-link to="/login" class="hidden md:block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Sign In</router-link>
         
         </div>
       </div>
