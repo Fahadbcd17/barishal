@@ -3,3 +3,4 @@ djoser
 djangorestframework
 django-cors-headers
 Pillow
+gunicorn
